@@ -1,0 +1,4 @@
+<div class="cart-item">
+    <span>{{ cartItem.productName }}</span> x <span>{{ cartItem.qty }}</span>: 
+    <strong>{{ (cartItem.buyPrice-((cartItem.buyPrice*cartItem.sale)/100))*cartItem.qty | currency: 'EUR' }}</strong>
+</div>

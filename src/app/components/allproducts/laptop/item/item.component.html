@@ -1,0 +1,25 @@
+<div class="card mb-4 box-shadow">
+    
+    <img class="bd-placeholder-img card-img-top" width="100%" height="200px;"
+         [src]="productItem.imageUrl" alt="Card image cap">
+
+    <div *ngIf="productItem.sale>0" class="top-right"><h1 class="badge badge-danger">{{productItem.sale}}%</h1></div>
+    
+    <div class="card-body">
+      <p class="card-text">
+          <strong>{{ productItem.buyPrice | currency: 'EUR'}}</strong>
+          <i *ngIf="addedToWishlist" class="fas fa-heart float-right" (click)="handleRemoveToWishlist(productItem)"></i>
+          <i *ngIf="!addedToWishlist" class="far fa-heart float-right" (click)="handleAddToWishlist(productItem)"></i>
+      </p>
+        
+      <p class="card-text">{{ productItem.productDescription | slice: 0:50 }}...</p>
+
+      <div class="d-flex justify-content-center">
+        <div class="btn-group">
+          <button type="button" class="btn btn-sm btn-outline-secondary product-btn" 
+            (click)="viewItemDetails()">View Details</button>
+        </div>
+        
+      </div>
+    </div>
+  </div>

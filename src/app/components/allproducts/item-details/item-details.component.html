@@ -1,0 +1,60 @@
+
+<div class="container mycontainer">
+    <div class="row list-group justify-content-center" style="margin-bottom: 20px;">
+        <ul class="list-group">
+            <li class="list-group-item list-group-item-danger text-center">
+              <h2>Please, you should login to add products in the Cart or the Wishlist!</h2>
+            </li>
+        </ul>
+    </div>
+  </div>
+  
+  <div class="container mycontainer">
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <div class="card mb-4 box-shadow">
+        
+            <img class="bd-placeholder-img card-img-top" width="auto" 
+            [src]="productItem.imageUrl" alt="Card image cap">
+  
+            <div *ngIf="productItem.sale>0" class="top-right"><h1 class="badge badge-danger">{{productItem.sale}}%</h1></div>  
+            
+            <div class="card-body">
+              <p class="card-text">
+                  <strong>{{ productItem.buyPrice | currency: 'EUR'}}</strong>
+                  <i *ngIf="addedToWishlist" class="fas fa-heart float-right" (click)="handleRemoveFromWishlist(productItem)"></i>
+                  <i *ngIf="!addedToWishlist" class="far fa-heart float-right" (click)="handleAddToWishlist(productItem)"></i>
+              </p>
+                
+              <p class="card-text">{{ productItem.productName | slice: 0:50 }}...</p>
+              <p class="card-text">{{ productItem.productDescription | slice: 0:50 }}...</p>
+                <div class="d-flex justify-content-center">
+                <div class="btn-group">
+                  <button type="button" class="btn btn-sm btn-primary product-btn" [disabled]="authenticatedUser==null"
+                  (click)="handleAddToCart()">Add to Cart</button>     
+                </div>
+              </div>
+            </div>
+        </div>
+        </div>
+    
+        <div class="col-md-6">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-12">
+                <h1>{{ productItem.productName }}</h1>
+                <h3>{{ productItem.buyPrice | currency: 'EUR'}}</h3>
+                <p>{{ productItem.productDescription }}</p>
+              </div>
+            </div>
+  
+            <div class="row"><div class="col-md-12"><app-cart></app-cart></div></div>
+            <div class="row"><div class="col-md-12"><app-wishlist></app-wishlist></div></div>
+          </div>
+  
+        </div>
+      </div>
+  </div>
+    
+    
+    

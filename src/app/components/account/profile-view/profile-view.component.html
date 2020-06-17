@@ -1,0 +1,36 @@
+
+<div class="container mycontainer">
+    <!--<div class="row justify-content-center">
+        <div class="col-md-6">
+
+        </div>
+    </div>-->
+
+  <h2>Your Profile</h2>
+  <p>The values you entered:</p>            
+  <table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th>Property</th>
+        <th colspan="2">Value</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr class="table-info"><td>Firstname</td><td colspan="2">{{customer.firstname}}</td></tr>
+        <tr><td>Lastname</td><td colspan="2">{{customer.lastname}}</td></tr>
+        <tr class="table-info"><td>Username</td><td colspan="2">{{customer.username}}</td></tr>
+        <tr><td>Email</td><td colspan="2">{{customer.email}}</td></tr>
+        <tr class="table-info"><td>Phone</td><td colspan="2">{{customer.phone}}</td></tr>
+        <tr><td>Gender</td><td colspan="2">{{customer.gender}}</td></tr>
+        <tr class="table-info"><td>Date of birth</td><td colspan="2">{{customer.date_of_birth}}</td></tr>
+        <tr><td colspan="3"></td></tr>
+        <tr class="table-info"><td colspan="3">Address</td></tr>
+        <tr><td></td><td>Street</td><td>{{customer.address.street}}</td></tr>
+        <tr class="table-info"><td></td><td>Number</td><td>{{customer.address.number}}</td></tr>
+        <tr><td></td><td>City</td><td>{{customer.address.city}}</td></tr>
+        <tr class="table-info"><td></td><td>State</td><td>{{customer.address.state}}</td></tr>
+        <tr><td></td><td>Pincode</td><td>{{customer.address.pincode}}</td></tr>
+        <tr class="table-info"><td colspan="3"></td></tr>
+    </tbody>
+  </table>
+</div>

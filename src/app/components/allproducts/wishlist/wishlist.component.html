@@ -1,0 +1,14 @@
+<div class="card mb-4 box-shadow w-100">
+    <div class="card-header">   
+        <span><strong>WishList</strong></span>
+    </div>
+    <div class="card-body">
+        <div *ngIf="wishlist.length === 0" class="alert alert-info">Your Cart is Empty</div>
+            <ul *ngIf="wishlist.length > 0" class="list-group">
+
+                <li class="list-group-item" *ngFor="let item of wishlist">
+                    <app-wish-item [wishItem]="item"></app-wish-item>
+                </li>
+            </ul>
+    </div>
+</div>

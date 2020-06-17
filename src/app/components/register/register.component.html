@@ -1,0 +1,297 @@
+<div class="container mycontainer">
+    <div class="row list-group justify-content-center" style="margin-bottom: 20px;">
+        <ul class="list-group">
+            <li class="list-group-item list-group-item-danger text-center">
+              <h2>Please, you should login to add products in the Cart or the Wishlist!</h2>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div class="container  mycontainer">
+    <div class="row justify-content-center">
+        <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+            <form #registerForm="ngForm" (ngSubmit)="onSubmit(registerForm)">
+                <h2>Please Sign Up <small>It's free. I you do not have an account, please register.</small></h2>
+                <hr class="colorgraph">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6 col-md-6">
+                        <div class="form-group">
+                            <label for="firstname" class="title">First Name</label><span class="star"> *</span>
+                            <input type="text" name="firstname" id="firstname"
+                             class="form-control input-lg" 
+                            [(ngModel)]="customer.firstname" #firstname="ngModel" minlength="3" pattern="^[a-zA-Z]*$"
+                                [ngClass]="{ 'is-invalid': submitted && firstname.errors }" required>	
+                            <div class="invalid-feedback" *ngIf="submitted && firstname.errors">
+                                <div *ngIf="firstname.errors.required">First Name is required.</div>
+                                <div *ngIf="firstname.errors.minlength">First Name should be minimun
+                                     {{ firstname.errors.minlength.requiredLength }} charcters.
+                                </div>
+                                <div *ngIf="firstname.errors.pattern">First Name should be alphabetical and contain no space.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-6">
+                        <div class="form-group">
+                            <label for="lastname" class="title">Last Name</label><span class="star"> *</span>
+                            <input type="text" name="lastname" id="lastname" class="form-control input-lg" 
+                            [(ngModel)]="customer.lastname" #lastname="ngModel" minlength="3" pattern="^[a-zA-Z]*$"
+                            [ngClass]="{ 'is-invalid': submitted && lastname.errors }" required>
+                            <div class="invalid-feedback" *ngIf="submitted && lastname.errors && lastname.touched && !lastname.valid">
+                                <div *ngIf="lastname.errors.required">Last Name is required.</div>
+                                <div *ngIf="lastname.errors.minlength">Last Name should be minimun
+                                     {{ lastname.errors.minlength.requiredLength }} charcters.
+                                </div>
+                                <div *ngIf="lastname.errors.pattern">Last Name should be alphabetical.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="username" class="title">Username</label><span class="star"> *</span>
+                    <input type="text" name="username" id="username" class="form-control input-lg"
+                    [(ngModel)]="customer.username" #username="ngModel" minlength="3" pattern="^([a-zA-Z0-9\-\.]+)$"
+                    [ngClass]="{ 'is-invalid': submitted && username.errors }" required (change)="onUsernameChange()">
+    
+                    <div class="invalid-feedback" *ngIf="submitted && username.errors && username.touched && !username.valid">
+                        <div *ngIf="username.errors.required">User Name is required.</div>
+                        <div *ngIf="username.errors.minlength">User Name should be minimun
+                             {{ username.errors.minlength.requiredLength }} charcters.
+                        </div>
+                        <div *ngIf="username.errors.pattern">User Name should be alphabetical.</div>
+                    </div>
+                    <div class="form-group">
+                        <div class="alert alert-danger" 
+                        *ngIf="submitted && usernameexists">This username already exists. Choose another one!</div>
+                    </div>
+                </div>
+    
+                <div class="row">
+                    <div class="col-xs-12 col-sm-4 col-md-4">
+                        <div class="form-group">
+                            <label for="street" class="title">Street</label><span class="star"> *</span>
+                            <input type="text" name="street" id="street" class="form-control input-lg" 
+                            [(ngModel)]="customer.address.street" #street="ngModel" minlength="3" pattern="^[a-zA-Z]*$"
+                                [ngClass]="{ 'is-invalid': submitted && street.errors }" required>
+                                
+                                <div class="invalid-feedback" *ngIf="submitted && street.errors && street.touched && !street.valid">
+                                    <div *ngIf="street.errors.required">Street is required.</div>
+                                    
+                                </div>
+                            
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-4 col-md-4">
+                        <div class="form-group">
+                            <label for="num" class="title">Number</label><span class="star"> *</span>
+                            <input type="text" name="number" id="number" class="form-control input-lg" 
+                            [(ngModel)]="customer.address.number" #number="ngModel" 
+                             pattern="^[0-9]*$" 
+                             [ngClass]="{ 'is-invalid': submitted && number.errors }" required>
+                        </div>
+                        <div class="invalid-feedback" *ngIf="submitted && number.errors && number.touched && !number.valid">
+                            <div *ngIf="number.errors.required">Number is required.</div>
+                            <div *ngIf="number.errors.pattern">Number should be numeric.</div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-xs-12 col-sm-4 col-md-4">
+                        <div class="form-group">
+                            <label for="city" class="title">City</label><span class="star"> *</span>
+                            <input type="text" name="city" id="city" class="form-control input-lg" 
+                            [(ngModel)]="customer.address.city" #city="ngModel" minlength="3" pattern="^[a-zA-Z]*$"
+                            [ngClass]="{ 'is-invalid': submitted && city.errors }" required>
+    
+                            <div class="invalid-feedback" *ngIf="submitted && city.errors && city.touched && !city.valid">
+                                <div *ngIf="city.errors.required">City is required.</div>
+                                <div *ngIf="city.errors.pattern">City should be alphabetical.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+
+                    <div class="col-xs-12 col-sm-6 col-md-6">
+                        <div class="form-group">
+                            <label for="state" class="title">State</label><span class="star"> *</span>
+                            <select class="browser-default custom-select" name="state" id="state"
+                                [(ngModel)]="customer.address.state" #state="ngModel"
+                                [ngClass]="{ 'is-invalid': submitted && state.errors }" placeholder="Select State"
+                                required>
+                                <option value="Burgenland">Burgenland</option>
+                                <option value="Kärnten">Kärnten</option>
+                                <option value="Niederösterreich">Niederösterreich</option>							 
+                                <option value="Oberösterreich">Oberösterreich</option>
+                                <option value="Salzburg">Salzburg</option>
+                                <option value="Steiermark">Steiermark</option>
+                                <option value="Tirol">Tirol</option>
+                                <option value="Vorarlberg">Vorarlberg</option>
+                                <option value="Wien">Wien</option>
+                            </select>
+    
+                            <div class="invalid-feedback" *ngIf="submitted && state.errors && state.touched && !state.valid">
+                                <div *ngIf="state.errors.required">State is required.</div>
+                                <div *ngIf="state.errors.pattern">State should be alphabetical.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-6">
+                        <div class="form-group">
+                            <label for="pincode" class="title">Bincode</label><span class="star"> *</span>
+                            <input type="text" name="pincode" id="pincode" class="form-control input-lg" 
+                            [(ngModel)]="customer.address.pincode" #pincode="ngModel" minlength="3" pattern="^[0-9]*$"
+                            [ngClass]="{ 'is-invalid': submitted && pincode.errors }" required>
+                            <div class="invalid-feedback" *ngIf="submitted && pincode.errors && pincode.touched && !pincode.valid">
+                                <div *ngIf="pincode.errors.required">Pincode is required.</div>
+                                <div *ngIf="pincode.errors.pattern">Pincode should be numerical.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="form-group">
+                    <label for="customer.date_of_birth" class="title">Date of Birth</label><span class="star"> *</span>
+
+                    <div class="input-group">
+                        <input class="form-control" type="text"
+                               placeholder="yyyy-mm-dd"
+                               [maxDate]="{day: 31, month: 12, year: 2002}" 
+                               data-date-format= "yyyy-mm-dd"
+                               id="dob" name="dob" [(ngModel)]="customer.date_of_birth"
+                               ngbDatepicker #d="ngbDatepicker" value="1880-10-15"
+                               #dob="ngModel" 
+                               required readonly 
+                               forceParse="true" toggleActive="true"
+                               [ngClass]="{'is-invalid': submitted && dob.invalid && (dob.dirty || dob.touched)}"/>
+                        <div class="btn btn-outline-secondary calendar" (click)="d.toggle()">
+                            <i class="fa fa-calendar" aria-hidden="true"></i>
+                        </div>
+
+
+                        <div class="invalid-feedback" *ngIf="submitted && dob.invalid && (dob.dirty || dob.touched)">
+                            <div *ngIf="dob.errors.required">Date of birth is required.</div>
+                            <div *ngIf="dob.errors.pattern">Date of birth should be a date.</div>
+                        </div>
+  
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+                    <label for="customer.email" class="title">Email Address</label><span class="star"> *</span>
+                    <input type="email" name="email" id="email" class="form-control input-lg" 
+                    [(ngModel)]="customer.email" #email="ngModel" 
+                    [ngClass]="{ 'is-invalid': submitted && email.errors }" required>
+    
+                    <div class="invalid-feedback" *ngIf="submitted && email.errors && email.touched && !email.valid">
+                        <div *ngIf="email.errors.required">Email is required.</div>
+                    </div>
+                </div>
+    
+                <div class="form-group">
+                    <label for="customer.phone" class="title">Phone Number</label><span class="star"> *</span>
+                    <input type="text" name="phone" id="phone" class="form-control input-lg" 
+                    [(ngModel)]="customer.phone" #phone="ngModel" 
+                    [ngClass]="{ 'is-invalid': submitted && phone.errors }" required>
+    
+                    <div class="invalid-feedback" *ngIf="submitted && phone.errors && phone.touched && !phone.valid">
+                        <div *ngIf="phone.errors.required">Phone number is required.</div>
+                    </div>
+                </div>
+    
+               <div class="form-group">
+                    
+                    <div class="btn-group">
+                        <label class="btn btn-primary">
+                            <input type="radio" [(ngModel)]="customer.gender" #gender="ngModel" name="options" value="Male"/>
+                            <span>Male</span>
+                        </label>
+    
+                        <label class="btn btn-primary">
+                            <input type="radio" [(ngModel)]="customer.gender" #gender="ngModel" name="options" value="Female"/>
+                            <span>Female</span>
+                        </label>
+                  </div>	
+                </div>
+    
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6 col-md-6">
+                        <div class="form-group">
+                            <label for="customer.password" class="title">Password</label><span class="star"> *</span>
+                            <input type="password" name="password" id="password" class="form-control input-lg" 
+                            [(ngModel)]="customer.password" #password="ngModel"
+                            [ngClass]="{ 'is-invalid': submitted && password.errors }" minlength="5" maxlength="10" required>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-6">
+                        <div class="form-group">
+                            <label for="customer.password_confirmation" class="title">Confirm Password</label><span class="star"> *</span>
+                            <input type="password" name="password_confirmation" id="password_confirmation" 
+                        
+                            class="form-control input-lg" 
+                            [(ngModel)]="customer.password_confirmation" #password_confirmation="ngModel"
+                            [ngClass]="{ 'is-invalid': submitted && password_confirmation.errors }" minlength="5" maxlength="10" required>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="alert alert-danger" *ngIf="submitted && passwordmismatch">Password does not match</div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-4 col-sm-3 col-md-3">
+                        <span class="button-checkbox">
+                            <button type="button" class="btn" data-color="info">I Agree</button>
+                            <input type="checkbox" name="t_and_c" id="t_and_c" class="hidden" 
+                            [(ngModel)]="customer.acceptTerms" required>
+                        </span>
+
+                    </div>
+                    <div class="col-xs-8 col-sm-9 col-md-9">
+                         By clicking <strong class="label label-primary">Register</strong>, you agree to our
+                         <a href="#" data-toggle="modal" 
+                         data-target="#t_and_c_m">Terms and Conditions</a>.
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="alert alert-danger" 
+                    *ngIf="submitted && !customer.acceptTerms">You should agree with our terms & conditions to register</div>
+                </div>
+                
+                <hr class="colorgraph">
+    
+                <div class="form-group">
+                    <input type="submit" value="Register" class="btn btn-primary btn-block btn-lg">
+                </div>
+    
+            </form>
+        </div>
+    </div>
+    
+    
+    
+    <!-- Modal -->
+    <div class="modal fade" id="t_and_c_m" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Terms & Conditions</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique, itaque, modi, aliquam nostrum at sapiente consequuntur natus odio reiciendis perferendis rem nisi tempore possimus ipsa porro delectus quidem dolorem ad.</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique, itaque, modi, aliquam nostrum at sapiente consequuntur natus odio reiciendis perferendis rem nisi tempore possimus ipsa porro delectus quidem dolorem ad.</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique, itaque, modi, aliquam nostrum at sapiente consequuntur natus odio reiciendis perferendis rem nisi tempore possimus ipsa porro delectus quidem dolorem ad.</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique, itaque, modi, aliquam nostrum at sapiente consequuntur natus odio reiciendis perferendis rem nisi tempore possimus ipsa porro delectus quidem dolorem ad.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">I Agree</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->

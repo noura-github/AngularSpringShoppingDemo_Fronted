@@ -1,0 +1,55 @@
+<div class="container mycontainer">
+    <div class="row list-group justify-content-center" style="margin-bottom: 20px;">
+        <ul class="list-group">
+            <li class="list-group-item list-group-item-danger text-center">
+              <h2>Please, you should login to add products in the Cart or the Wishlist!</h2>
+            </li><!-- class="blink"-->
+        </ul>
+    </div>
+</div>
+
+<div class="container mycontainer">
+    <div class="row justify-content-center">
+        <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+            <form class="form" role="form" autocomplete="off" (submit)="loginUser($event)"
+            id="formLogin" novalidate="" method="POST">
+                <h2>Please Sign Up <small>It's free. If you do not have an account, please register.</small></h2>
+                <hr class="colorgraph">
+            
+                <div class="form-group">
+
+                    <label for="username" class="title">Username</label><span class="star"> *</span>
+                    <input id="username" name="username" class="form-control form-control-lg rounded-0" 
+                    [(ngModel)]="username"  required>
+                    
+
+                    <!--[ngClass]="{ 'is-invalid': submitted && username.errors }"-->
+                    <!--<div class="invalid-feedback" *ngIf="submitted && username.errors && username.touched && !username.valid">
+                        <div *ngIf="username.errors.required">User Name is required.</div>
+                    </div>-->
+
+                </div>
+    
+                <div class="form-group">
+                    <label for="password" class="title">Password</label><span class="star"> *</span>
+                    <input type="password" name="password" class="form-control form-control-lg rounded-0" 
+                    [(ngModel)]="password" required>
+                    
+                     <!-- [ngClass]="{ 'is-invalid': submitted && password.errors }" "-->
+                    <!--<div class="invalid-feedback" *ngIf="submitted && password.errors && password.touched && !password.valid">
+                        <div *ngIf="password.errors.required">User Name is required.</div>
+                    </div>-->
+                </div>
+    
+                <div class="alert alert-danger" *ngIf='invalidLogin&&badcredentials'>{{errorMessage401}}</div>
+                <div class="alert alert-danger" *ngIf='invalidLogin&&noconnection'>{{errorMessage504}}</div>
+                <div class="alert alert-danger" *ngIf='invalidLogin&&unknownproblem'>{{errorMessage}}</div>
+                
+                <hr class="colorgraph">
+                <div class="form-group">
+                     <button type="submit" class="btn btn-success btn-block btn-lg" id="btnLogin">Sign In</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

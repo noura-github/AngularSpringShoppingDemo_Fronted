@@ -1,0 +1,40 @@
+
+<div class="container mycontainer">
+    <div class="row list-group justify-content-center" style="margin-bottom: 20px;">
+  
+            <a href="#" class="list-group-item list-group-item-action flex-column align-items-start active">
+              <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">SALE</h5>
+                <small>Shop now!</small>
+              </div>
+              <p class="mb-1">50% on all selected products!</p>
+              <small>CODE (78459)</small>
+            </a>
+    </div>
+  </div>
+  
+  
+  <div class="container">
+    <div class="page-header">
+      <h1>{{text}}</h1>      
+    </div>    
+  </div>
+  
+  <div class="container mycontainer">
+  
+      <div class="row justify-content-center">
+  
+          <div class="col">
+              <app-filter></app-filter> <!-- selector of the component filters -->
+          </div>
+      
+          <div class="col-md-8">
+              <!--<router-outlet></router-outlet>-->
+              <router-outlet name='sub'></router-outlet>
+          </div>
+      </div>
+  
+    </div>
+  
+  
+  
