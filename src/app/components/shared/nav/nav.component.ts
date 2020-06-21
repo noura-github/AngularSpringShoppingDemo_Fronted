@@ -1,11 +1,11 @@
+import { WishlistService } from 'src/app/services/wishlist.service';
 import { ProductService } from 'src/app/services/product.service';
-import { AuthenticationService } from 'src/app/services/authentication.service';
 import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { Product } from 'src/app/models/product';
 import { MessengerService } from 'src/app/services/messenger.service';
 
-import { Location } from '@angular/common';
+import { CartService } from 'src/app/services/cart.service';
 
 @Component({
   selector: 'app-nav',
@@ -16,15 +16,18 @@ export class NavComponent implements OnInit {
 
   searchItem:string;
   authenticatedUser:string;
+  cartTotal:number=0;
+  wishlistCount:number=0;
+
+  CUSTOMER_SESSION_ATTRIBUTE_USER = 'user';
+  CUSTOMER_SESSION_ATTRIBUTE_CARTTOTAL = 'cartTotal';
+  CUSTOMER_SESSION_ATTRIBUTE_WISHLISTCOUNT = 'wishlistCount';
 
   constructor(private router: Router,
-    private autentication:AuthenticationService,
     private productservice:ProductService,
     private messengerService:MessengerService,
-    
-    private route: ActivatedRoute,
-
-    private location: Location) {
+    private cartService:CartService,
+    private wishlistService:WishlistService) {
       this.handleSubscription();
    }
 
@@ -39,11 +42,24 @@ export class NavComponent implements OnInit {
       this.authenticatedUser = name;
 
       if (name){
-        localStorage.setItem('user', name);
+        localStorage.setItem(this.CUSTOMER_SESSION_ATTRIBUTE_USER, name);
       } else {
-        localStorage.removeItem('user')
+        localStorage.removeItem(this.CUSTOMER_SESSION_ATTRIBUTE_USER)
       }
-    })
+    });
+
+    this.cartTotal = isNaN(parseInt(localStorage.getItem(this.CUSTOMER_SESSION_ATTRIBUTE_CARTTOTAL)))?
+                     0:parseInt(localStorage.getItem(this.CUSTOMER_SESSION_ATTRIBUTE_CARTTOTAL));
+    this.wishlistCount = isNaN(parseInt(localStorage.getItem(this.CUSTOMER_SESSION_ATTRIBUTE_WISHLISTCOUNT)))?
+                      0:parseInt(localStorage.getItem(this.CUSTOMER_SESSION_ATTRIBUTE_WISHLISTCOUNT));
+
+    this.cartService.getCartTotalMsg().subscribe((cartTotal:number)=>{      
+      this.cartTotal = cartTotal;
+    });
+
+    this.wishlistService.getWishlistCountMsg().subscribe((wishlistCount:number)=>{
+      this.wishlistCount = wishlistCount;
+    });
 
     let user = localStorage.getItem('user')
 

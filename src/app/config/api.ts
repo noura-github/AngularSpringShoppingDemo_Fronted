@@ -1,9 +1,8 @@
 
 import { environment } from './../../environments/environment';
 
-//If it is production url, otherwise
-//export const baseUrl = environment.production ? "https://api.shoppingcart.com":"http://localhost:8080";
-export const baseUrl = environment.production ? "https://api.shoppingcart.com":"/api";
+
+export const baseUrl = "/api";
 export const productsUrl = baseUrl + '/products';
 export const laptopsUrl = baseUrl + '/laptops';
 export const printersUrl = baseUrl + '/printers';

@@ -18,7 +18,6 @@ export class MessengerService {
     public cartItemSubject: Subject<any> = new Subject();
 
     public wishItemSubject: Subject<any> = new Subject();
-
     public searchSubject: Subject<any> = new BehaviorSubject<any>(null);
     
   constructor() { }
@@ -72,8 +71,6 @@ export class MessengerService {
   }
 
 
-
-
   sendWishlistItemsMsg(wishlist: WishItem[]){
     this.wishItemSubject.next(wishlist); 
   }
@@ -82,4 +79,8 @@ export class MessengerService {
 
     return this.wishItemSubject.asObservable();
   }
+
+
+
+
 }

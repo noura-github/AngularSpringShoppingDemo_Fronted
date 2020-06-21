@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { wishlistUrl, productsUrl } from './../config/api';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators'
-import { Observable, of, empty } from 'rxjs';
+import { Observable, of, empty, Subject } from 'rxjs';
 import { AuthenticationService } from './authentication.service';
 
 @Injectable({
@@ -15,6 +15,8 @@ export class WishlistService {
 
   username;
   password;
+  wishlistCount:number=0;
+  wishlistCountSubject: Subject<any> = new Subject();
 
   constructor(private http:HttpClient) { 
       this.username=localStorage.getItem('authenticatedUser');
@@ -67,38 +69,55 @@ export class WishlistService {
     return this.http.post<WishItem[]>(wishlistUrl + '/deleteWishProduct' + '/' + customerId, wishItem,
                     {headers, responseType: 'text' as 'json'}).pipe(map((data: any) => {
 
-                          if (data instanceof Array){
+                          /*if (data instanceof Array){
                             return data;
-                          }
+                          }*/
                           return this.getWishProduct(data); 
                       })
                 );
   }
 
 
-  getWishProduct(data: any){
+    getWishProduct(data: any){
 
-    let wishItems: WishItem[] = []; 
+      //console.log('#### data='+data)
 
-    if(data.length<=0) return wishItems;
+      let wishItems: WishItem[] = []; 
 
-    let jo = JSON.parse(data); 
+      if(data.length<=0) return wishItems;
 
-    jo.forEach(element => {
+      let jo = JSON.parse(data); 
+
+      jo.forEach(element => {
+        
+        let wishItem = new WishItem();
+
+        if (element){
+
+          wishItem.wishProductId = element.wishProductId;  
+          wishItem.productId = element.mainProduct.productId;  
+          wishItem.productName = element.mainProduct.productName;     
+          wishItem.buyPrice = element.mainProduct.buyPrice;   
+          wishItems.push(wishItem);
+        }
+      });
+
       
-      let wishItem = new WishItem();
-
-      if (element){
-
-        wishItem.wishProductId = element.wishProductId;  
-        wishItem.productId = element.mainProduct.productId;  
-        wishItem.productName = element.mainProduct.productName;     
-        wishItem.buyPrice = element.mainProduct.buyPrice;   
-        wishItems.push(wishItem);
-      }
-
       this.wishlist=wishItems;
-    });
-    return wishItems;
-}
+      this.wishlistCount=this.wishlist.length;
+      localStorage.setItem("wishlistCount", this.wishlistCount.toString());
+      this.sendWishlistCountMsg(this.wishlistCount);
+
+      return wishItems;
+  }
+
+
+
+  sendWishlistCountMsg(wishlistCount:number){
+    this.wishlistCountSubject.next(wishlistCount); 
+  }
+
+  getWishlistCountMsg(){
+    return this.wishlistCountSubject.asObservable();
+  }
 }

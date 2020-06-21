@@ -18,9 +18,12 @@ export class AuthenticationService {
 
   customer: Customer;
   customerId: number;
-  USER_NAME_SESSION_ATTRIBUTE_NAME = 'authenticatedUser';
+  CUSTOMER_SESSION_ATTRIBUTE_NAME = 'authenticatedUser';
   CUSTOMER_SESSION_ATTRIBUTE_CUSTOMER = 'customer';
   CUSTOMER_SESSION_ATTRIBUTE_ID = 'customerId';
+  CUSTOMER_SESSION_ATTRIBUTE_PASSWORD = 'password';
+  CUSTOMER_SESSION_ATTRIBUTE_CARTTOTAL = 'cartTotal';
+  CUSTOMER_SESSION_ATTRIBUTE_WISHLISTCOUNT = 'wishlistCount';
 
  constructor(private http: HttpClient,
    private messengerService:MessengerService) { }
@@ -46,14 +49,14 @@ export class AuthenticationService {
 
    //Return if a user is login
    isUserLoggedIn() {
-      let user = localStorage.getItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME)
+      let user = localStorage.getItem(this.CUSTOMER_SESSION_ATTRIBUTE_NAME)
       if (user === null) return false
       return true
    }
 
    registerSuccessfulLogin() {
 
-      localStorage.setItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME, this.username);
+      localStorage.setItem(this.CUSTOMER_SESSION_ATTRIBUTE_NAME, this.username);
 
       localStorage.setItem('password', this.password);
       
@@ -75,10 +78,14 @@ export class AuthenticationService {
    //Reset all login parameters after invalidate session
    resetLoginParamters(){
 
-      localStorage.removeItem('password');
-      localStorage.removeItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME);
+      localStorage.removeItem(this.CUSTOMER_SESSION_ATTRIBUTE_PASSWORD);
+      localStorage.removeItem(this.CUSTOMER_SESSION_ATTRIBUTE_NAME);
       localStorage.removeItem(this.CUSTOMER_SESSION_ATTRIBUTE_CUSTOMER);
       localStorage.removeItem(this.CUSTOMER_SESSION_ATTRIBUTE_ID);
+      localStorage.removeItem(this.CUSTOMER_SESSION_ATTRIBUTE_CARTTOTAL);
+      localStorage.removeItem(this.CUSTOMER_SESSION_ATTRIBUTE_WISHLISTCOUNT);
+
+
       this.customerId = NaN;
       this.customer = null;
       this.username = null;

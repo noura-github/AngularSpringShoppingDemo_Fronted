@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MessengerService } from 'src/app/services/messenger.service';
 import { WishItem } from 'src/app/models/wish-item';
 import { WishlistService } from 'src/app/services/wishlist.service';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-wishlist',
@@ -13,6 +14,8 @@ export class WishlistComponent implements OnInit {
   customerId:number;
   authenticatedUser:string;
   wishlist = [];
+
+
 
   constructor(private messengerService: MessengerService,
     private wishlistService: WishlistService) { 
@@ -30,10 +33,10 @@ export class WishlistComponent implements OnInit {
   
   handleSubscription(){
     
-    this.messengerService.getWishlisttemAsProductMsg().subscribe((wishItems:WishItem[]) => {
-
-        this.wishlist = wishItems;
+    this.messengerService.getWishlisttemAsProductMsg().subscribe((items:WishItem[]) => {
+      this.setWishlist(items);
      });
+
   }
 
 
@@ -43,7 +46,7 @@ export class WishlistComponent implements OnInit {
 
     this.wishlistService.getWishlist(this.customerId).subscribe((items: WishItem[]) => {
 
-      this.wishlist = items;
+      this.setWishlist(items);
     });
   }
   
@@ -51,8 +54,13 @@ export class WishlistComponent implements OnInit {
   removeItem(wishItem: WishItem){
 
     this.wishlistService.removeFromWishlist(this.customerId, wishItem).subscribe((items: WishItem[]) => {
-      this.wishlist = items;
+
+      this.setWishlist(items);
     });
+  }
+
+  setWishlist(items: WishItem[]){
+    this.wishlist = items;
   }
 
 }
